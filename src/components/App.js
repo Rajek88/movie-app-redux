@@ -33,9 +33,9 @@ class App extends React.Component {
   //   };
 
   isMovieFav = (movie) => {
-    const { favourites } = this.props.store.getState();
+    const { movies } = this.props.store.getState();
     // get index of current movie
-    const index = favourites.indexOf(movie);
+    const index = movies.favourites.indexOf(movie);
     // if the movie is found and we will get correct index, else we will get -1 if movie not found
     if (index === -1) {
       // if movie not found, return false
@@ -59,8 +59,9 @@ class App extends React.Component {
   };
 
   render() {
+    const { movies } = this.props.store.getState();
     //fetch the list of movies from object returned by store via destructuring
-    const { list, favourites, showFav } = this.props.store.getState();
+    const { list, favourites, showFav } = movies;
     console.log("RENDER");
     console.log("STATE :: ", this.props.store.getState());
     // get what we want to display
