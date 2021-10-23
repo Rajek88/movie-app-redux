@@ -2,6 +2,7 @@ import React from "react";
 import Navbar from "./Navbar";
 import { data } from "../data";
 import MovieCard from "./MovieCard";
+import { addMovies, showFav, showMovie } from "../actions";
 
 class App extends React.Component {
   componentDidMount() {
@@ -16,30 +17,76 @@ class App extends React.Component {
     });
 
     //dispatch the action to the store
-
-    store.dispatch({
-      type: "ADD_MOVIES",
-      movies: data,
-    });
+    // dispatching with the help of function
+    store.dispatch(addMovies(data));
 
     console.log("STATE :: ", store.getState());
   }
+  // const [state, setstate] = useState(initialState)
+
+  //   isMovieTabPressed = () => {
+  //     if (isMovieTab) {
+  //       isMovieTab = false;
+  //       return;
+  //     }
+  //     return;
+  //   };
+
+  isMovieFav = (movie) => {
+    const { favourites } = this.props.store.getState();
+    // get index of current movie
+    const index = favourites.indexOf(movie);
+    // if the movie is found and we will get correct index, else we will get -1 if movie not found
+    if (index === -1) {
+      // if movie not found, return false
+      return false;
+    } else {
+      // if found return true
+      return true;
+    }
+  };
+
+  handleFav = () => {
+    // using reducer to tab switch
+    const { store } = this.props;
+    store.dispatch(showFav());
+  };
+
+  handleMovies = () => {
+    // using reducer to tab switch
+    const { store } = this.props;
+    store.dispatch(showMovie());
+  };
+
   render() {
-    const movies = this.props.store.getState();
+    //fetch the list of movies from object returned by store via destructuring
+    const { list, favourites, showFav } = this.props.store.getState();
     console.log("RENDER");
+    console.log("STATE :: ", this.props.store.getState());
+    // get what we want to display
+    const display = showFav ? favourites : list;
     return (
       <div className="App">
         <Navbar />
         <div className="main">
           <div className="tabs">
-            <div className="tab">Movies</div>
-            <div className="tab">Favourites</div>
+            <button className="tab" onClick={this.handleMovies}>
+              Movies
+            </button>
+            <button className="tab" onClick={this.handleFav}>
+              Favourites
+            </button>
           </div>
+          {/* {console.log('is Movies Tab')} */}
           <div className="list">
-            {movies.map((movie, index) => (
-              <MovieCard movie={movie} key={`movies-${index}`} />
+            {display.map((movie, index) => (
+              <MovieCard
+                movie={movie}
+                key={`movies-${index}`} // send the dispatch function to the movie card
+                dispatch={this.props.store.dispatch}
+                isMovieFav={this.isMovieFav(movie)}
+              />
             ))}
-            <div className="list"></div>
           </div>
         </div>
       </div>
