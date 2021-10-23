@@ -46,7 +46,7 @@ code {
 .search-results {
   position: absolute;
   background: #fff;
-  width: 100%;
+  width: 85%;
   box-sizing: border-box;
   border: 1px solid #e1e1e1;
   top: 42px;
@@ -94,7 +94,7 @@ code {
 }
 #search-btn {
   background: #f2711c;
-  height: 43px;
+  height: 44px;
   color: #fff;
   border: none;
   font-size: 15px;

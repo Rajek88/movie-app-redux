@@ -59,7 +59,7 @@ class App extends React.Component {
   };
 
   render() {
-    const { movies } = this.props.store.getState();
+    const { movies, search } = this.props.store.getState();
     //fetch the list of movies from object returned by store via destructuring
     const { list, favourites, showFav } = movies;
     console.log("RENDER");
@@ -69,7 +69,7 @@ class App extends React.Component {
     const display = showFav ? favourites : list;
     return (
       <div className="App">
-        <Navbar props={this.props.store} />
+        <Navbar dispatch={this.props.store.dispatch} search={search} />
         <div className="main">
           <div className="tabs">
             <button

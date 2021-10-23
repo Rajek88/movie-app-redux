@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { handleMovieSearch } from "../actions";
+import { addMovieToList, handleMovieSearch } from "../actions";
 // import { data } from "../data";
 
 class Navbar extends Component {
@@ -7,21 +7,27 @@ class Navbar extends Component {
     // console.log("Navbar props : ", props);
     super(props);
     this.state = {
-      showSearchResults: true,
       searchText: "",
     };
   }
   handleSearch = () => {
     const { searchText } = this.state;
     // destructure props from this.props
-    const { props } = this.props;
+    // const { props } = this.props;
     // console.log("NaVbar props dispatch  : ", this.props.props.dispatch);
 
     // this.props.props.dispatch(handleMovieSearch(searchText));
 
-    console.log("Navbar props dispatch  : ", props.dispatch);
+    console.log("Navbar props dispatch  : ", this.props.dispatch);
 
-    props.dispatch(handleMovieSearch(searchText));
+    this.props.dispatch(handleMovieSearch(searchText));
+  };
+
+  handleAddToMovieList = (movie) => {
+    this.props.dispatch(addMovieToList(movie));
+    this.setState({
+      showSearchResults: false,
+    });
   };
 
   handleChange = (e) => {
@@ -32,6 +38,7 @@ class Navbar extends Component {
     console.log("You are typing : ", query);
   };
   render() {
+    const { result, showSearchResults } = this.props.search;
     return (
       <div className="nav">
         <div className="search-container">
@@ -39,6 +46,20 @@ class Navbar extends Component {
           <button id="search-btn" onClick={this.handleSearch}>
             Search
           </button>
+          {showSearchResults && (
+            <div className="search-results">
+              <div className="search-result">
+                <img src={result.Poster} alt={result.Title} />
+                <div className="movie-info">
+                  <span>{result.Title}</span>
+                  <p>{result.Plot}</p>
+                  <button onClick={() => this.handleAddToMovieList(result)}>
+                    Add to movies
+                  </button>
+                </div>
+              </div>
+            </div>
+          )}
         </div>
       </div>
     );
