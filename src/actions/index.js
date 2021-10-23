@@ -51,3 +51,16 @@ export function showMovie(val) {
     val,
   };
 }
+
+export function handleMovieSearch(movie) {
+  const url = `https://www.omdbapi.com/?apikey=3ca5df7&t=${movie}`;
+
+  return function (dispatch) {
+    fetch(url)
+      .then(
+        (response) => response.json()
+        // console.log("fetched data : ", response);
+      )
+      .then((movie) => console.log("Movie : ", movie));
+  };
+}

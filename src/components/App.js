@@ -63,12 +63,13 @@ class App extends React.Component {
     //fetch the list of movies from object returned by store via destructuring
     const { list, favourites, showFav } = movies;
     console.log("RENDER");
-    console.log("STATE :: ", this.props.store.getState());
+    console.log("STATE 2 :: ", this.props.store.getState());
+    console.log("STORE 2 :: ", this.props.store);
     // get what we want to display
     const display = showFav ? favourites : list;
     return (
       <div className="App">
-        <Navbar />
+        <Navbar props={this.props.store} />
         <div className="main">
           <div className="tabs">
             <button
