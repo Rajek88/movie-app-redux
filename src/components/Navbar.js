@@ -39,6 +39,8 @@ class Navbar extends Component {
   };
   render() {
     const { result, showSearchResults } = this.props.search;
+    console.log("response : ", result.Response);
+
     return (
       <div className="nav">
         <div className="search-container">
@@ -48,16 +50,20 @@ class Navbar extends Component {
           </button>
           {showSearchResults && (
             <div className="search-results">
-              <div className="search-result">
-                <img src={result.Poster} alt={result.Title} />
-                <div className="movie-info">
-                  <span>{result.Title}</span>
-                  <p>{result.Plot}</p>
-                  <button onClick={() => this.handleAddToMovieList(result)}>
-                    Add to movies
-                  </button>
+              {result.Response === "False" ? (
+                "Movie not found ! \n Check your spelling"
+              ) : (
+                <div className="search-result">
+                  <img src={result.Poster} alt={result.Title} />
+                  <div className="movie-info">
+                    <span>{result.Title}</span>
+                    <p>{result.Plot}</p>
+                    <button onClick={() => this.handleAddToMovieList(result)}>
+                      Add to movies
+                    </button>
+                  </div>
                 </div>
-              </div>
+              )}
             </div>
           )}
         </div>
