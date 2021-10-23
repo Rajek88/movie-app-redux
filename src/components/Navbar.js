@@ -51,7 +51,7 @@ class Navbar extends Component {
           {showSearchResults && (
             <div className="search-results">
               {result.Response === "False" ? (
-                "Movie not found ! \n Check your spelling"
+                "Movie not found ! Check your spelling"
               ) : (
                 <div className="search-result">
                   <img src={result.Poster} alt={result.Title} />
