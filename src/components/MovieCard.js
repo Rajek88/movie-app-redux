@@ -21,7 +21,7 @@ export default class MovieCard extends Component {
   };
   render() {
     const { movie, isMovieFav } = this.props;
-    console.log("isMovieFav :: ");
+
     return (
       <div className="movie-card">
         <div className="left">
