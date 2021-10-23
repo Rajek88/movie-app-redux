@@ -70,10 +70,16 @@ class App extends React.Component {
         <Navbar />
         <div className="main">
           <div className="tabs">
-            <button className="tab" onClick={this.handleMovies}>
+            <button
+              className={` tab ${showFav ? "" : "active-tabs"}`}
+              onClick={this.handleMovies}
+            >
               Movies
             </button>
-            <button className="tab" onClick={this.handleFav}>
+            <button
+              className={` tab ${showFav ? "active-tabs" : ""}`}
+              onClick={this.handleFav}
+            >
               Favourites
             </button>
           </div>
